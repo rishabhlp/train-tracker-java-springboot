@@ -1,7 +1,10 @@
 package com.railways.indianrail.parser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
-import java.util.*;
+
 import com.railways.indianrail.entity.StationStatus;
 import com.railways.indianrail.entity.StationStatusResponse;
 import com.railways.indianrail.entity.StationTrainsParsed;
