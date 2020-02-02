@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.railways.indianrail.boilerplate.ApplicationConstants;
-import com.railways.indianrail.componentService.ComponentServiceExchange;
+import com.railways.indianrail.componentService.ComponentServiceInterface;
 import com.railways.indianrail.entity.StationStatus;
 import com.railways.indianrail.entity.StationStatusResponse;
 import com.railways.indianrail.entity.StationTrainsParsed;
@@ -27,7 +27,7 @@ import com.railways.indianrail.repository.TrainNameRepository;
 public class IndianRailService {
 
 	@Autowired
-	ComponentServiceExchange componentServiceExchange;
+	ComponentServiceInterface componentServiceExchange;
 
 	@Autowired
 	TrainNameRepository trainNameRepository;

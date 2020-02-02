@@ -13,7 +13,7 @@ import com.railways.indianrail.entity.TrainStatusResponse;
  *
  */
 @Component
-public class ComponentServiceExchange {
+public class ComponentServiceImpl implements ComponentServiceInterface {
 
 	RestTemplate restTemplate=new RestTemplate();
 	
