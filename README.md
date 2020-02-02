@@ -1,7 +1,7 @@
 # Traintracker
 
 Spring boot project to retrieve the live running status of train and to know the live status of a station.
-This project uses RailwayAPI.
+This project uses RailwayAPI - https://railwayapi.com.
 
 Technologies Used:
 Java 8
@@ -31,6 +31,9 @@ Endpoint available:
       
        Parameters: stationCode - String,
        eg: http://localhost:9000/stationstatus/TATA
+       
+       
+Please use a new API key while using. You can get a free api key at https://railwayapi.com/register.
                           
 
 
