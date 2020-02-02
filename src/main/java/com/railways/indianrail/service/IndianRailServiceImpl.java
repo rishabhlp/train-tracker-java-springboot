@@ -24,7 +24,7 @@ import com.railways.indianrail.repository.TrainNameRepository;
  *
  */
 @Service
-public class IndianRailService {
+public class IndianRailServiceImpl implements IndianRailServiceIF {
 
 	@Autowired
 	ComponentServiceInterface componentServiceExchange;
