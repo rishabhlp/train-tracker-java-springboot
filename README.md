@@ -19,6 +19,7 @@ Run the project through the IDE and hit the available endpoints through Postman 
 Host is http://localhost:9000
 
 Endpoint available:
+
 1.Train status - Endpoint to get live data of train:
 
        /trainstatus/{trainNumber}/{stationCode}/{date},
@@ -42,8 +43,8 @@ Endpoint available:
 4.Change Api Key Endpoint - Endpoint to update new Api Key: 
 
       /apikey/{key}
-      Parameters: key - New Api Key - String
-      eg: http://localhost:9000/apikey/slj1ssm53f
+      Parameters: key - New Api Key - String of length 10
+      eg: http://localhost:9000/apikey/abcdefghij
 
 Please use a new API key while using. You can get a free api key at https://railwayapi.com/register.
                           
