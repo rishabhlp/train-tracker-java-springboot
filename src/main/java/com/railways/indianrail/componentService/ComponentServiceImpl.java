@@ -15,20 +15,21 @@ import com.railways.indianrail.entity.TrainStatusResponse;
 @Component
 public class ComponentServiceImpl implements ComponentServiceInterface {
 
-	RestTemplate restTemplate=new RestTemplate();
-	
+	RestTemplate restTemplate = new RestTemplate();
+
 	public TrainStatusResponse liveTrainStatus(String urlForLiveTrain) {
-		TrainStatusResponse trainStatus=restTemplate.getForObject(urlForLiveTrain, TrainStatusResponse.class);
+		TrainStatusResponse trainStatus = restTemplate.getForObject(urlForLiveTrain, TrainStatusResponse.class);
 		return trainStatus;
 	}
-	
+
 	public TrainNameResponse trainName(String urlForTrainName) {
-		TrainNameResponse trainNameResponse=restTemplate.getForObject(urlForTrainName, TrainNameResponse.class);
+		TrainNameResponse trainNameResponse = restTemplate.getForObject(urlForTrainName, TrainNameResponse.class);
 		return trainNameResponse;
 	}
-	
-	public StationStatusResponse  stationStatus(String urlForStationStatus) {
-		StationStatusResponse stationStatusResponse=restTemplate.getForObject(urlForStationStatus, StationStatusResponse.class);
+
+	public StationStatusResponse stationStatus(String urlForStationStatus) {
+		StationStatusResponse stationStatusResponse = restTemplate.getForObject(urlForStationStatus,
+				StationStatusResponse.class);
 		return stationStatusResponse;
 	}
 }

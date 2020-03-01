@@ -63,15 +63,24 @@ public class IndianRailController {
 
 	@RequestMapping(value = ApplicationConstants.STATION_STATUS_ENDPOINT, method = RequestMethod.GET)
 	public ResponseEntity<StationStatus> stationStatus(@PathVariable("stationCode") String stationCode) {
-	if (null != stationCode) {
-			StationStatus stationStatus=indianRailServiceIF.stationLiveStatus(stationCode);
-			if(0!=stationStatus.getTotal())
+		if (null != stationCode) {
+			StationStatus stationStatus = indianRailServiceIF.stationLiveStatus(stationCode);
+			if (0 != stationStatus.getTotal())
 				return new ResponseEntity<StationStatus>(stationStatus, HttpStatus.OK);
 			else
 				return new ResponseEntity<StationStatus>(stationStatus, HttpStatus.BAD_REQUEST);
 		} else
 			return new ResponseEntity<StationStatus>(HttpStatus.BAD_REQUEST);
 
+	}
+
+	@RequestMapping(value = ApplicationConstants.CHANGE_API_KEY_ENDPOINT, method = RequestMethod.GET)
+	public ResponseEntity<String> changeApiKey(@PathVariable("key") String apiKey) {
+		boolean result = indianRailServiceIF.changeApiKey(apiKey);
+		if (result == true)
+			return new ResponseEntity<String>("API Key Changed", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("Check Entered Key", HttpStatus.NOT_ACCEPTABLE);
 	}
 
 }

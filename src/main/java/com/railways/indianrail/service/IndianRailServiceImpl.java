@@ -35,23 +35,27 @@ public class IndianRailServiceImpl implements IndianRailServiceIF {
 	@Autowired
 	IndianRailParser indianRailParser;
 
+	@Override
 	public TrainStatus liveTrainStatus(String trainNumber, String stationCode, String date) {
 		StringBuilder urlForLiveStatus = new StringBuilder();
 		urlForLiveStatus.append(ApplicationConstants.API_HOST).append(trainNumber).append(ApplicationConstants.SLASH);
 		urlForLiveStatus.append("station/").append(stationCode).append(ApplicationConstants.SLASH);
-		urlForLiveStatus.append("date/").append(date).append(ApplicationConstants.API_KEY);
+		urlForLiveStatus.append("date/").append(date).append(ApplicationConstants.API_KEY_HOST)
+				.append(ApplicationConstants.API_KEY).append(ApplicationConstants.SLASH);
 		TrainStatusResponse trainStatus = componentServiceExchange.liveTrainStatus(urlForLiveStatus.toString());
 		TrainStatus status = indianRailParser.trainStatusParser(trainStatus);
 		return status;
 	}
 
+	@Override
 	public TrainName trainName(String trainNumber) {
-		if(true==trainNameRepository.existsById(Integer.valueOf(trainNumber))) {
+		if (true == trainNameRepository.existsById(Integer.valueOf(trainNumber))) {
 			return trainNameRepository.getOne(Integer.valueOf(trainNumber));
 		} else {
 			StringBuilder urlForTrainName = new StringBuilder();
 			urlForTrainName.append(ApplicationConstants.API_HOST_FOR_NAME).append(trainNumber)
-					.append(ApplicationConstants.API_KEY);
+					.append(ApplicationConstants.API_KEY_HOST).append(ApplicationConstants.API_KEY)
+					.append(ApplicationConstants.SLASH);
 			TrainNameResponse nameResponse = componentServiceExchange.trainName(urlForTrainName.toString());
 			if (nameResponse.getResponseCode() == 200) {
 				trainNameRepository.save(indianRailParser.trainNameParser(nameResponse));
@@ -61,18 +65,33 @@ public class IndianRailServiceImpl implements IndianRailServiceIF {
 
 		}
 	}
-	
+
+	@Override
 	public StationStatus stationLiveStatus(String stationCode) {
-		StringBuilder urlForStationStatus=new StringBuilder();
-		urlForStationStatus.append(ApplicationConstants.API_HOST_FOR_STATION_STATUS).append(stationCode).append(ApplicationConstants.API_ENDPOINT_FOR_STATION_STATUS);
-		StationStatusResponse stationStatusResponse=componentServiceExchange.stationStatus(urlForStationStatus.toString());
-		if((200==stationStatusResponse.getResponseCode())&&(0!=stationStatusResponse.getTotal())) {
-			StationStatus stationStatus=indianRailParser.stationStatusParser(stationStatusResponse);
+		StringBuilder urlForStationStatus = new StringBuilder();
+		urlForStationStatus.append(ApplicationConstants.API_HOST_FOR_STATION_STATUS).append(stationCode)
+				.append(ApplicationConstants.API_ENDPOINT_FOR_STATION_STATUS).append(ApplicationConstants.API_KEY)
+				.append(ApplicationConstants.SLASH);
+		StationStatusResponse stationStatusResponse = componentServiceExchange
+				.stationStatus(urlForStationStatus.toString());
+		if ((200 == stationStatusResponse.getResponseCode()) && (0 != stationStatusResponse.getTotal())) {
+			StationStatus stationStatus = indianRailParser.stationStatusParser(stationStatusResponse);
 			return stationStatus;
-		}
-		else {
-			List<StationTrainsParsed> list=new ArrayList<>();
+		} else {
+			List<StationTrainsParsed> list = new ArrayList<>();
 			return new StationStatus(0, list);
+		}
+	}
+
+	@Override
+	public boolean changeApiKey(String apiKey) {
+		if (null == apiKey)
+			return false;
+		if (10 != apiKey.length())
+			return false;
+		else {
+			ApplicationConstants.API_KEY = apiKey;
+			return true;
 		}
 	}
 

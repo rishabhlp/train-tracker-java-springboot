@@ -12,4 +12,6 @@ public interface IndianRailServiceIF {
 
 	public StationStatus stationLiveStatus(String stationCode);
 
+	public boolean changeApiKey(String apiKey);
+
 }
