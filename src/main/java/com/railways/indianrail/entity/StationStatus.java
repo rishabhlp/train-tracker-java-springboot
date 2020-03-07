@@ -11,6 +11,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 public class StationStatus {
 
+	@JsonProperty("Message")
+	private String message;
+
 	@JsonProperty("Total No. of Trains")
 	private Integer total;
 
@@ -40,6 +43,14 @@ public class StationStatus {
 
 	public void setTrains(List<StationTrainsParsed> trains) {
 		this.trains = trains;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 }

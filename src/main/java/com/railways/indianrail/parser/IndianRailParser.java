@@ -21,19 +21,21 @@ import com.railways.indianrail.entity.TrainStatusResponse;
 @Component
 public class IndianRailParser {
 
+	private static final String DESTINATION = "Destination";
+
 	public TrainName trainNameParser(TrainNameResponse trainNameResponse) {
 		TrainName name = new TrainName();
 		name.setTrainName(trainNameResponse.getTrain().getName());
 		name.setTrainNumber(Integer.valueOf(trainNameResponse.getTrain().getNumber()));
 		return name;
 	}
-	
+
 	public StationStatus stationStatusParser(StationStatusResponse stationStatusResponse) {
-		StationStatus stationStatus=new StationStatus();
+		StationStatus stationStatus = new StationStatus();
 		stationStatus.setTotal(stationStatusResponse.getTotal());
-		List<StationTrainsParsed> list=new ArrayList<>();
-		for(int i=0;i<stationStatusResponse.getTotal();i++) {
-			StationTrainsParsed stationTrainsParsed=new StationTrainsParsed();
+		List<StationTrainsParsed> list = new ArrayList<>();
+		for (int i = 0; i < stationStatusResponse.getTotal(); i++) {
+			StationTrainsParsed stationTrainsParsed = new StationTrainsParsed();
 			stationTrainsParsed.setActarr(stationStatusResponse.getTrains().get(i).getActarr());
 			stationTrainsParsed.setActdep(stationStatusResponse.getTrains().get(i).getActdep());
 			stationTrainsParsed.setDelayarr(stationStatusResponse.getTrains().get(i).getDelayarr());
@@ -73,7 +75,7 @@ public class IndianRailParser {
 					null != trainStatusResponse.getStatus() ? trainStatusResponse.getStatus().getScharr() : "");
 			trainStatus.setSchdep(
 					null != trainStatusResponse.getStatus() ? trainStatusResponse.getStatus().getSchdep() : "");
-			if (false == trainStatusResponse.getStatus().getHasArrived()) {
+			if (Boolean.FALSE.equals(trainStatusResponse.getStatus().getHasArrived())) {
 				if ("Source".equalsIgnoreCase(trainStatusResponse.getStatus().getActarr())) {
 					trainStatus.setHasArrived("Sorce");
 					trainStatus.setActArr("Source");
@@ -81,21 +83,21 @@ public class IndianRailParser {
 					trainStatus.setHasArrived("NO");
 					trainStatus.setActArr("Not Arrived Till Now");
 				}
-			} else if (true == trainStatusResponse.getStatus().getHasArrived()) {
+			} else if (Boolean.TRUE.equals(trainStatusResponse.getStatus().getHasArrived())) {
 				trainStatus.setHasArrived("YES");
 				trainStatus.setActArr(null != trainStatusResponse.getStatus().getActarr()
 						? trainStatusResponse.getStatus().getActarr()
 						: "");
 			}
-			if (false == trainStatusResponse.getStatus().getHasDeparted()) {
-				if ("Destination".equalsIgnoreCase(trainStatusResponse.getStatus().getSchdep())) {
-					trainStatus.setHasDeparted("Destination");
-					trainStatus.setActDep("Destination");
+			if (Boolean.FALSE.equals(trainStatusResponse.getStatus().getHasDeparted())) {
+				if (DESTINATION.equalsIgnoreCase(trainStatusResponse.getStatus().getSchdep())) {
+					trainStatus.setHasDeparted(DESTINATION);
+					trainStatus.setActDep(DESTINATION);
 				} else {
 					trainStatus.setHasDeparted("NO");
 					trainStatus.setActDep("Not Departed Till Now");
 				}
-			} else if (true == trainStatusResponse.getStatus().getHasDeparted()) {
+			} else if (Boolean.TRUE.equals(trainStatusResponse.getStatus().getHasDeparted())) {
 				trainStatus.setHasDeparted("YES");
 				trainStatus.setActDep(null != trainStatusResponse.getStatus().getActdep()
 						? trainStatusResponse.getStatus().getActdep()

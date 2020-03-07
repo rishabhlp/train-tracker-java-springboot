@@ -7,7 +7,6 @@ package com.railways.indianrail.boilerplate;
  */
 public class ApplicationConstants {
 
-	public static String API_KEY = "slj1ssm53f";
 	public static final String SLASH = "/";
 	public static final String API_HOST = "https://api.railwayapi.com/v2/live/train/";
 	public static final String API_KEY_HOST = "/apikey/";
@@ -18,5 +17,9 @@ public class ApplicationConstants {
 	public static final String TRAIN_NAME_ENDPOINT = "/trainname/{trainNumber}";
 	public static final String STATION_STATUS_ENDPOINT = "/stationstatus/{stationCode}";
 	public static final String CHANGE_API_KEY_ENDPOINT = "/apikey/{key}";
+	public static final String API_KEY_ERROR_MESSAGE = "Please change your Api Key";
+
+	private ApplicationConstants() {
+	}
 
 }
